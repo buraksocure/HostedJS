@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script type="text/javascript" src="devicer.min.js">
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<body>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var deviceFPOptions = {
+                publicKey: 'SDK_KEY',
+                userConsent: true,
+                context: 'signup',
+                includeCookies: false
+                /* 
+
+                MARK: Predefined context values
+
+                homepage	Your main or screen that loads when the application or website opens page
+                signup	    All account creation pages
+                login   	All pages that serve as an entry or access point (e.g. login page) profile	Account/profile change pages
+                password	All password-related pages (forgot, reset, and create new password pages)
+                transaction	Any transaction-related page (adds an item to a cart, completes a purchase, etc.)
+                checkout	The page on which a customer completes a purchased
+
+                */
+
+
+            };
+            devicer.run(deviceFPOptions, function (response) {
+                console.log(response);
+                $.each(response, function (key, value) {
+                    if (key=="result") {
+                        $("#FingerPrintResult").append(value);
+                    }
+                    if (key=="sessionId") {
+                        $("#SessionId").append(value);
+                    }
+                });
+
+            })
+        });
+
+    </script>
+
+</body>
+
+
+</head>
+
+<input type="text" id="text" name="User Name">
+<input type="text" id="text" name="Password">
+<button type="submit" id="login" value="Log In">Log In</button>
+<br/>
+<div id="FingerPrintResult">FingerPrint Result:</div>
+<br/>
+<div id="SessionId">Session Id:</div>
+<br/>
+</html>
